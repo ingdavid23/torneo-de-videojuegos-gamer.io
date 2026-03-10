@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="es" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Torneo Gaming ITC</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --bg-color: #0a0a0f;
+      --surface-color: #12121a;
+      --text-color: #ffffff;
+      --primary-color: #00f0ff;
+      --secondary-color: #ff00aa;
+      --tertiary-color: #ffcc00;
+    }
+
+    /* MODO MATRIX OVERRIDE (Se activa con JS) */
+    .matrix-override {
+      --bg-color: #000500 !important;
+      --surface-color: #001100 !important;
+      --primary-color: #00ff00 !important;
+      --secondary-color: #008800 !important;
+      --text-color: #e0ffe0 !important;
+    }
+
+    body { 
+      font-family: 'Rajdhani', sans-serif; 
+      background: var(--bg-color); 
+      overflow-x: hidden; 
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%2300f0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"></circle><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line></svg>') 12 12, crosshair; 
+    }
+    
+    a, button, select, input, .cursor-pointer { 
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23ff00aa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"></circle><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line></svg>') 12 12, pointer !important; 
+    }
+
+    .font-display { font-family: 'Orbitron', monospace; }
+    
+    .theme-transition {
+      transition: background 0.8s ease, color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease, text-shadow 0.8s ease, fill 0.8s ease;
+    }
+
+    /* EFECTO GLITCH PARA TÍTULOS */
+    .glitch-text { position: relative; z-index: 1; display: inline-block; }
+    .glitch-text:hover::before, .glitch-text:hover::after {
+        content: attr(data-text);
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent;
+    }
+    .glitch-text:hover::before {
+        left: 3px; text-shadow: -2px 0 var(--secondary-color);
+        animation: glitch-anim-1 2s infinite linear alternate-reverse; z-index: -1;
+    }
+    .glitch-text:hover::after {
+        left: -3px; text-shadow: -2px 0 var(--primary-color);
+        animation: glitch-anim-2 3s infinite linear alternate-reverse; z-index: -1;
+    }
+    @keyframes glitch-anim-1 { 0% { clip-path: inset(20% 0 80% 0); } 20% { clip-path: inset(60% 0 10% 0); } 40% { clip-path: inset(40% 0 50% 0); } 60% { clip-path: inset(80% 0 5% 0); } 80% { clip-path: inset(10% 0 70% 0); } 100% { clip-path: inset(30% 0 50% 0); } }
+    @keyframes glitch-anim-2 { 0% { clip-path: inset(10% 0 60% 0); } 20% { clip-path: inset(30% 0 20% 0); } 40% { clip-path: inset(70% 0 10% 0); } 60% { clip-path: inset(20% 0 50% 0); } 80% { clip-path: inset(50% 0 30% 0); } 100% { clip-path: inset(5% 0 80% 0); } }
+
+    /* Animaciones de Fondo 3D */
+    .floating-cube { position: absolute; width: 60px; height: 60px; transform-style: preserve-3d; animation: floatRotate 8s ease-in-out infinite; }
+    .cube-face { position: absolute; width: 60px; height: 60px; border: 2px solid var(--primary-color); background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(255, 0, 170, 0.1)); backdrop-filter: blur(5px); }
+    .cube-face.front { transform: translateZ(30px); } .cube-face.back { transform: rotateY(180deg) translateZ(30px); }
+    .cube-face.right { transform: rotateY(90deg) translateZ(30px); } .cube-face.left { transform: rotateY(-90deg) translateZ(30px); }
+    .cube-face.top { transform: rotateX(90deg) translateZ(30px); } .cube-face.bottom { transform: rotateX(-90deg) translateZ(30px); }
+    @keyframes floatRotate { 0%, 100% { transform: translateY(0) rotateX(0deg) rotateY(0deg); } 25% { transform: translateY(-20px) rotateX(90deg) rotateY(90deg); } 50% { transform: translateY(0) rotateX(180deg) rotateY(180deg); } 75% { transform: translateY(20px) rotateX(270deg) rotateY(270deg); } }
+    
+    /* Textos y Botones */
+    .neon-text { text-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color), 0 0 20px var(--primary-color); color: var(--text-color); }
+    .neon-text-pink { text-shadow: 0 0 5px var(--secondary-color), 0 0 10px var(--secondary-color), 0 0 20px var(--secondary-color); color: var(--secondary-color); }
+    .countdown-item { background: var(--surface-color); border: 1px solid rgba(0, 240, 255, 0.3); position: relative; overflow: hidden; }
+    
+    .cta-button { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); position: relative; overflow: hidden; border: none; }
+    .cta-button:hover:not(:disabled) { transform: scale(1.05); box-shadow: 0 0 30px var(--primary-color), 0 0 60px var(--secondary-color); }
+    .cta-button:disabled { opacity: 0.7; transform: none; box-shadow: none; filter: grayscale(50%); }
+    
+    .btn-secondary { background: transparent; border: 2px solid var(--primary-color); color: var(--primary-color); }
+    .btn-secondary:hover { background: rgba(0, 240, 255, 0.1); box-shadow: 0 0 15px var(--primary-color); transform: translateY(-2px); }
+
+    .game-card { background: rgba(18, 18, 26, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); transition: all 0.4s ease; }
+    .game-card:hover { transform: translateY(-10px); }
+    .game-card.fortnite:hover { border-color: #9d4edd; box-shadow: 0 10px 30px rgba(157, 78, 221, 0.3); }
+    .game-card.fifa:hover { border-color: #00f5d4; box-shadow: 0 10px 30px rgba(0, 245, 212, 0.3); }
+    .game-card.clash:hover { border-color: #ffb703; box-shadow: 0 10px 30px rgba(255, 183, 3, 0.3); }
+
+    .grid-bg { background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px); background-size: 50px 50px; animation: gridMove 20s linear infinite; }
+    @keyframes gridMove { 0% { background-position: 0 0; } 100% { background-position: 50px 50px; } }
+    .fade-in-up { animation: fadeInUp 0.8s ease forwards; opacity: 0; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .delay-1 { animation-delay: 0.2s; } .delay-2 { animation-delay: 0.4s; } .delay-3 { animation-delay: 0.6s; } .delay-4 { animation-delay: 0.8s; } .delay-5 { animation-delay: 1s; }
+    select option { background-color: var(--surface-color); color: var(--text-color); }
+    
+    .progress-bar-container { width: 100%; background: rgba(255, 255, 255, 0.1); border-radius: 20px; overflow: hidden; height: 12px; margin-top: 8px;}
+    .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); width: 75%; box-shadow: 0 0 10px var(--primary-color); transition: width 1s ease-in-out, background 0.8s ease; }
+
+    .timeline-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--primary-color); opacity: 0.3; }
+    .timeline-dot { position: absolute; left: -5px; top: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--primary-color); box-shadow: 0 0 10px var(--primary-color); }
+    .faq-item { border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+    .faq-item.active .faq-answer { max-height: 200px; }
+    .faq-item.active .faq-icon { transform: rotate(180deg); color: var(--primary-color); }
+    
+    /* CRT Scanline Effect para la Terminal Hacker */
+    .scanlines::before {
+      content: " "; display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+      z-index: 2; background-size: 100% 2px, 3px 100%; pointer-events: none;
+    }
+  </style>
+ </head>
+ <body class="h-full theme-transition">
+  
+  <canvas id="particle-canvas" class="fixed top-0 left-0 w-full h-full pointer-events-none z-[1]"></canvas>
+
+  <div class="app-wrapper h-full w-full overflow-auto" style="background: var(--bg-color);">
+   <div class="grid-bg min-h-full w-full relative pb-10 z-10">
+    
+    <div class="floating-cube theme-transition" style="top: 10%; left: 5%;">
+     <div class="cube-face front theme-transition"></div><div class="cube-face back theme-transition"></div><div class="cube-face right theme-transition"></div><div class="cube-face left theme-transition"></div><div class="cube-face top theme-transition"></div><div class="cube-face bottom theme-transition"></div>
+    </div>
+    
+    <div class="relative z-10 flex flex-col items-center justify-center min-h-full px-4 py-12">
+     
+     <div class="fade-in-up mb-4"><span class="theme-transition inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold tracking-wider" style="background: rgba(255,255,255, 0.05); border: 1px solid var(--primary-color); color: var(--primary-color);"> <i data-lucide="gamepad-2" style="width: 16px; height: 16px;"></i> EVENTO EXCLUSIVO </span></div>
+     
+     <h1 class="font-display text-4xl md:text-6xl lg:text-7xl font-black text-center mb-2 neon-text theme-transition fade-in-up delay-1 glitch-text" data-text="TORNEO GAMING">TORNEO GAMING</h1>
+     <h2 class="font-display text-2xl md:text-4xl font-bold text-center mb-8 neon-text-pink theme-transition fade-in-up delay-1 glitch-text" data-text="2026">2026</h2>
+     
+     <div class="fade-in-up delay-2 mb-8 text-center flex flex-col sm:flex-row gap-4">
+      <div class="theme-transition inline-flex items-center gap-3 px-6 py-3 rounded-xl" style="background: var(--surface-color); border: 1px solid var(--secondary-color);">
+        <i data-lucide="calendar" class="theme-transition" style="width: 24px; height: 24px; color: var(--secondary-color);"></i> 
+        <span class="font-display text-xl font-bold" style="color: var(--text-color);">17 MARZO 2026</span>
+      </div>
+      <button onclick="toggleModal('rules-modal')" class="btn-secondary theme-transition font-display text-lg font-bold px-6 py-3 rounded-xl flex items-center gap-2">
+        <i data-lucide="scroll-text" style="width: 20px; height: 20px;"></i> REGLAS Y PREMIOS
+      </button>
+     </div>
+
+     <div class="fade-in-up delay-3 mb-16">
+      <div id="countdown" class="flex flex-wrap justify-center gap-3 md:gap-4">
+       <div class="countdown-item theme-transition rounded-xl p-4 md:p-6 min-w-[80px] md:min-w-[100px] text-center"><span id="days" class="font-display text-3xl md:text-5xl font-black neon-text theme-transition">00</span><p class="text-xs md:text-sm uppercase tracking-wider mt-1 theme-transition" style="color: var(--primary-color);">Días</p></div>
+       <div class="countdown-item theme-transition rounded-xl p-4 md:p-6 min-w-[80px] md:min-w-[100px] text-center"><span id="hours" class="font-display text-3xl md:text-5xl font-black neon-text theme-transition">00</span><p class="text-xs md:text-sm uppercase tracking-wider mt-1 theme-transition" style="color: var(--primary-color);">Horas</p></div>
+       <div class="countdown-item theme-transition rounded-xl p-4 md:p-6 min-w-[80px] md:min-w-[100px] text-center"><span id="minutes" class="font-display text-3xl md:text-5xl font-black neon-text theme-transition">00</span><p class="text-xs md:text-sm uppercase tracking-wider mt-1 theme-transition" style="color: var(--primary-color);">Minutos</p></div>
+       <div class="countdown-item theme-transition rounded-xl p-4 md:p-6 min-w-[80px] md:min-w-[100px] text-center"><span id="seconds" class="font-display text-3xl md:text-5xl font-black neon-text theme-transition">00</span><p class="text-xs md:text-sm uppercase tracking-wider mt-1 theme-transition" style="color: var(--primary-color);">Segundos</p></div>
+      </div>
+     </div>
+
+     <div class="fade-in-up delay-4 mb-16 w-full max-w-4xl">
+       <h3 class="font-display text-2xl text-center mb-8 tracking-widest uppercase text-gray-400">Juegos Oficiales</h3>
+       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+         <div class="game-card fortnite p-6 rounded-2xl text-center flex flex-col items-center">
+           <div class="w-16 h-16 rounded-full mb-4 flex items-center justify-center" style="background: rgba(157, 78, 221, 0.2); border: 1px solid #9d4edd;">
+             <i data-lucide="crosshair" style="color: #9d4edd; width: 32px; height: 32px;"></i>
+           </div>
+           <h4 class="font-display text-xl font-bold text-white mb-2">FORTNITE</h4>
+           <p class="text-sm text-gray-400">Batalla Campal • Solos y Dúos</p>
+         </div>
+         <div class="game-card fifa p-6 rounded-2xl text-center flex flex-col items-center">
+           <div class="w-16 h-16 rounded-full mb-4 flex items-center justify-center" style="background: rgba(0, 245, 212, 0.2); border: 1px solid #00f5d4;">
+             <i data-lucide="dribbble" style="color: #00f5d4; width: 32px; height: 32px;"></i>
+           </div>
+           <h4 class="font-display text-xl font-bold text-white mb-2">EA FC (FIFA)</h4>
+           <p class="text-sm text-gray-400">Torneo 1v1 • Eliminación Directa</p>
+         </div>
+         <div class="game-card clash p-6 rounded-2xl text-center flex flex-col items-center">
+           <div class="w-16 h-16 rounded-full mb-4 flex items-center justify-center" style="background: rgba(255, 183, 3, 0.2); border: 1px solid #ffb703;">
+             <i data-lucide="swords" style="color: #ffb703; width: 32px; height: 32px;"></i>
+           </div>
+           <h4 class="font-display text-xl font-bold text-white mb-2">CLASH ROYALE</h4>
+           <p class="text-sm text-gray-400">Mejor de 3 • Arena Competitiva</p>
+         </div>
+       </div>
+     </div>
+
+     <div class="fade-in-up delay-5 w-full max-w-md mx-auto p-8 rounded-2xl relative mb-16 theme-transition" style="background: var(--surface-color); border: 1px solid var(--primary-color); box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
+      <div class="mb-6">
+        <div class="flex justify-between text-sm font-bold mb-1">
+          <span class="theme-transition" style="color: var(--primary-color);">CUPOS DISPONIBLES</span>
+          <span class="text-white">12 / 50</span>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill"></div>
+        </div>
+      </div>
+
+      <form id="attendance-form" class="flex flex-col gap-4">
+        <select id="user-game" name="Juego" required class="theme-transition px-6 py-4 rounded-lg text-center font-display text-lg focus:outline-none appearance-none cursor-pointer" style="background: rgba(255,255,255,0.05); color: var(--text-color); border: 1px solid var(--primary-color);">
+          <option value="" disabled selected>¿En qué juego competirás?</option>
+          <option value="Fortnite">Fortnite</option>
+          <option value="FIFA">FIFA / EA FC</option>
+          <option value="Clash Royale">Clash Royale</option>
+        </select>
+        <input type="text" id="user-name" name="Nombre" required placeholder="Tu Nombre o Gamertag" class="theme-transition px-6 py-4 rounded-lg text-center font-display text-lg focus:outline-none" style="background: rgba(255,255,255,0.05); color: var(--text-color); border: 1px solid var(--primary-color);">
+        <input type="email" id="user-email" name="Correo" required placeholder="Tu Correo" class="theme-transition px-6 py-4 rounded-lg text-center font-display text-lg focus:outline-none" style="background: rgba(255,255,255,0.05); color: var(--text-color); border: 1px solid var(--primary-color);">
+        <input type="hidden" name="_subject" value="Nueva Inscripción: Torneo Gaming ITC">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+
+        <button type="submit" id="confirm-button" class="cta-button theme-transition font-display flex items-center justify-center gap-3 text-lg font-bold px-8 py-4 rounded-lg mt-4" style="color: var(--bg-color);">
+          <span id="btn-text">INSCRIBIRME AL TORNEO</span>
+          <svg id="btn-spinner" class="hidden animate-spin h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+        </button>
+      </form>
+      <p id="form-message" class="text-center mt-4 hidden text-sm font-bold tracking-wider"></p>
+     </div>
+
+     <div class="w-full max-w-2xl mx-auto px-4 mb-20 fade-in-up">
+       <h3 class="font-display text-2xl text-center mb-10 tracking-widest uppercase text-gray-400">
+         <i data-lucide="clock" class="inline w-6 h-6 mr-2 theme-transition" style="color: var(--primary-color);"></i> Agenda del Evento
+       </h3>
+       <div class="relative pl-6 space-y-8">
+         <div class="timeline-item relative">
+           <div class="timeline-dot theme-transition"></div>
+           <div class="pl-6">
+             <span class="font-display text-xl font-bold theme-transition" style="color: var(--secondary-color);">09:00 AM</span>
+             <h4 class="text-lg text-white font-bold mt-1">Check-in y Asignación</h4>
+           </div>
+         </div>
+         <div class="timeline-item relative">
+           <div class="timeline-dot theme-transition"></div>
+           <div class="pl-6">
+             <span class="font-display text-xl font-bold theme-transition" style="color: var(--secondary-color);">10:00 AM</span>
+             <h4 class="text-lg text-white font-bold mt-1">Fase de Grupos</h4>
+           </div>
+         </div>
+         <div class="timeline-item relative">
+           <div class="timeline-dot theme-transition"></div>
+           <div class="pl-6">
+             <span class="font-display text-xl font-bold theme-transition" style="color: var(--secondary-color);">02:00 PM</span>
+             <h4 class="text-lg text-white font-bold mt-1">Gran Final</h4>
+           </div>
+         </div>
+       </div>
+     </div>
+
+     <div class="w-full max-w-5xl mx-auto px-4 mb-10 fade-in-up text-center border-t border-gray-800 pt-12">
+       <p class="font-display tracking-widest uppercase text-gray-400 mb-8 text-sm">Patrocinadores Oficiales</p>
+       <div class="flex flex-wrap justify-center items-center gap-12 md:gap-20 mb-6">
+         <div class="flex items-center gap-3 transition-all duration-300 text-[#0070d1] hover:scale-110" style="text-shadow: 0 0 15px rgba(0, 112, 209, 0.4);">
+           <i class="fa-brands fa-playstation text-4xl"></i>
+           <span class="font-display font-bold text-xl tracking-widest mt-1">PLAYSTATION</span>
+         </div>
+         <div class="flex items-center gap-3 transition-all duration-300 text-[#107c10] hover:scale-110" style="text-shadow: 0 0 15px rgba(16, 124, 16, 0.4);">
+           <i class="fa-brands fa-xbox text-4xl"></i>
+           <span class="font-display font-bold text-xl tracking-widest mt-1">XBOX</span>
+         </div>
+         <div class="flex items-center gap-2 transition-all duration-300 text-[#e60012] hover:scale-110" style="text-shadow: 0 0 15px rgba(230, 0, 18, 0.4);">
+           <div class="border-[3px] border-current rounded-full px-5 py-1.5 flex items-center justify-center" style="box-shadow: inset 0 0 10px rgba(230,0,18,0.3), 0 0 10px rgba(230,0,18,0.3);">
+             <span class="font-display font-bold text-lg tracking-widest">NINTENDO</span>
+           </div>
+         </div>
+       </div>
+     </div>
+
+    </div>
+    
+    <footer class="w-full py-6 text-center border-t border-gray-800" style="background: rgba(10, 10, 15, 0.9);">
+      <p class="text-gray-500 text-sm tracking-widest uppercase">
+        2026 Torneo Gaming <span class="mx-2">|</span><span class="font-display font-bold theme-transition" style="color: var(--primary-color);">tecnm</span>
+      </p>
+    </footer>
+
+   </div>
+  </div>
+
+  <div id="rules-modal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity duration-300">
+    <div class="max-w-2xl w-full rounded-2xl p-8 relative theme-transition" style="background: var(--surface-color); border: 1px solid var(--primary-color); box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);">
+      <button onclick="toggleModal('rules-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
+        <i data-lucide="x" style="width: 28px; height: 28px;"></i>
+      </button>
+      <h3 class="font-display text-3xl font-bold mb-6 text-center theme-transition" style="color: var(--primary-color);">REGLAMENTO</h3>
+      <div class="mt-8 text-center">
+        <button onclick="toggleModal('rules-modal')" class="cta-button theme-transition font-display font-bold px-8 py-3 rounded-lg text-black">CERRAR</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="hacker-terminal" class="fixed inset-0 z-[9999] hidden bg-black flex-col items-start justify-start p-8 font-mono text-green-500 overflow-hidden scanlines">
+    <p class="mb-2">> INICIANDO PROTOCOLO DE SEGURIDAD ITC...</p>
+    <p class="mb-2">> ACCESO RESTRINGIDO. SISTEMA BLOQUEADO.</p>
+    <p class="mb-4">> POR FAVOR, INGRESE EL CÓDIGO DE ANULACIÓN DEL SISTEMA:</p>
+    <div class="flex w-full mt-2">
+        <span class="mr-2 text-green-400">admin@servidor:~$</span>
+        <input type="text" id="terminal-input" class="bg-transparent border-none outline-none text-green-400 w-full font-bold uppercase" autocomplete="off">
+    </div>
+    <p id="terminal-output" class="mt-6 text-green-300 whitespace-pre-wrap"></p>
+    <p class="absolute bottom-8 right-8 text-green-800 text-xs opacity-50">PRESIONA ESC PARA SALIR</p>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    function toggleModal(modalID) {
+      document.getElementById(modalID).classList.toggle('hidden');
+    }
+
+    // CONTADOR
+    function updateCountdown() {
+      const targetDate = new Date('2026-03-17T00:00:00').getTime();
+      const now = new Date().getTime();
+      const difference = targetDate - now;
+      if (difference > 0) {
+        document.getElementById('days').textContent = String(Math.floor(difference / (1000 * 60 * 60 * 24))).padStart(2, '0');
+        document.getElementById('hours').textContent = String(Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+        document.getElementById('seconds').textContent = String(Math.floor((difference % (1000 * 60)) / 1000)).padStart(2, '0');
+      }
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // ==========================================
+    // LÓGICA DE PARTÍCULAS INTERACTIVAS (CANVAS)
+    // ==========================================
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    let particlesArray = [];
+    let mouse = { x: null, y: null, radius: 100 };
+    let particleBaseColor = '0, 240, 255'; // Color por defecto (Cyan)
+
+    window.addEventListener('mousemove', function(event) {
+        mouse.x = event.x;
+        mouse.y = event.y;
+    });
+
+    window.addEventListener('resize', function() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        initParticles();
+    });
+
+    class Particle {
+        constructor(x, y, directionX, directionY, size, color) {
+            this.x = x; this.y = y;
+            this.directionX = directionX; this.directionY = directionY;
+            this.size = size; this.color = color;
+        }
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+            ctx.fillStyle = `rgba(${particleBaseColor}, 0.8)`;
+            ctx.fill();
+        }
+        update() {
+            if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+            if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+            
+            // Interacción de evadir el mouse
+            let dx = mouse.x - this.x;
+            let dy = mouse.y - this.y;
+            let distance = Math.sqrt(dx*dx + dy*dy);
+            if (distance < mouse.radius + this.size){
+                if (mouse.x < this.x && this.x < canvas.width - this.size * 10) this.x += 2;
+                if (mouse.x > this.x && this.x > this.size * 10) this.x -= 2;
+                if (mouse.y < this.y && this.y < canvas.height - this.size * 10) this.y += 2;
+                if (mouse.y > this.y && this.y > this.size * 10) this.y -= 2;
+            }
+            this.x += this.directionX;
+            this.y += this.directionY;
+            this.draw();
+        }
+    }
+
+    function initParticles() {
+        particlesArray = [];
+        let numberOfParticles = (canvas.height * canvas.width) / 15000;
+        for (let i = 0; i < numberOfParticles; i++) {
+            let size = (Math.random() * 3) + 1;
+            let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+            let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+            let directionX = (Math.random() * 1) - 0.5;
+            let directionY = (Math.random() * 1) - 0.5;
+            let color = `rgba(${particleBaseColor}, 0.8)`;
+            particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+        }
+    }
+
+    function animateParticles() {
+        requestAnimationFrame(animateParticles);
+        ctx.clearRect(0, 0, innerWidth, innerHeight);
+        for (let i = 0; i < particlesArray.length; i++) {
+            particlesArray[i].update();
+        }
+        connectParticles();
+    }
+
+    // Efecto Constelación (Lineas entre partículas cercanas)
+    function connectParticles() {
+        let opacityValue = 1;
+        for (let a = 0; a < particlesArray.length; a++) {
+            for (let b = a; b < particlesArray.length; b++) {
+                let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                if (distance < (canvas.width/10) * (canvas.height/10)) {
+                    opacityValue = 1 - (distance/20000);
+                    ctx.strokeStyle = `rgba(${particleBaseColor}, ${opacityValue})`;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                    ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                    ctx.stroke();
+                }
+            }
+        }
+    }
+    
+    // Iniciar Canvas
+    canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+    initParticles(); animateParticles();
+
+    // ==========================================
+    // LÓGICA DE LA TERMINAL HACKER (EASTER EGG)
+    // ==========================================
+    let keyBuffer = '';
+    const terminal = document.getElementById('hacker-terminal');
+    const termInput = document.getElementById('terminal-input');
+    const termOutput = document.getElementById('terminal-output');
+
+    document.addEventListener('keydown', (e) => {
+        // Salir con ESC
+        if(e.key === 'Escape') {
+            terminal.classList.add('hidden'); terminal.classList.remove('flex');
+            return;
+        }
+        // Atajo directo con ~
+        if(e.key === '~' || e.key === '`') {
+            e.preventDefault(); openTerminal();
+        }
+        // Keylogger para la palabra "admin"
+        keyBuffer += e.key.toLowerCase();
+        if(keyBuffer.length > 5) keyBuffer = keyBuffer.slice(-5);
+        if(keyBuffer === 'admin') openTerminal();
+    });
+
+    function openTerminal() {
+        terminal.classList.remove('hidden');
+        terminal.classList.add('flex');
+        setTimeout(() => termInput.focus(), 100);
+        keyBuffer = '';
+    }
+
+    termInput.addEventListener('keypress', function(e) {
+        if(e.key === 'Enter') {
+            const code = this.value.toUpperCase().trim();
+            if(code === 'MATRIX' || code === 'DYCODE') {
+                termOutput.textContent = '> CÓDIGO ACEPTADO.\n> ANULANDO SISTEMA PRINCIPAL...\n> MODO DESARROLLADOR ACTIVADO. BIENVENIDO, DAVID.';
+                
+                // Activar Matrix Mode
+                document.body.classList.add('matrix-override');
+                particleBaseColor = '0, 255, 0'; // Cambiar partículas a verde
+                
+                setTimeout(() => {
+                    terminal.classList.add('hidden');
+                    terminal.classList.remove('flex');
+                    this.value = '';
+                }, 3000);
+            } else {
+                termOutput.textContent = `> ERROR: CÓDIGO '${code}' NO RECONOCIDO.\n> ACCESO DENEGADO. EL INCIDENTE HA SIDO REGISTRADO.`;
+                this.value = '';
+            }
+        }
+    });
+
+    // ==========================================
+    // LÓGICA DEL TEMA DINÁMICO DEL SELECT
+    // ==========================================
+    const gameSelect = document.getElementById('user-game');
+    const root = document.documentElement;
+
+    gameSelect.addEventListener('change', function(e) {
+      if(document.body.classList.contains('matrix-override')) return; // No cambiar si está en modo Matrix
+      const selectedGame = e.target.value;
+      if (selectedGame === 'Fortnite') {
+        root.style.setProperty('--primary-color', '#9d4edd'); root.style.setProperty('--secondary-color', '#00f0ff'); particleBaseColor = '157, 78, 221';
+      } else if (selectedGame === 'FIFA') {
+        root.style.setProperty('--primary-color', '#00f5d4'); root.style.setProperty('--secondary-color', '#00a8ff'); particleBaseColor = '0, 245, 212';
+      } else if (selectedGame === 'Clash Royale') {
+        root.style.setProperty('--primary-color', '#ffb703'); root.style.setProperty('--secondary-color', '#3a86ff'); particleBaseColor = '255, 183, 3';
+      } else {
+        root.style.setProperty('--primary-color', '#00f0ff'); root.style.setProperty('--secondary-color', '#ff00aa'); particleBaseColor = '0, 240, 255';
+      }
+    });
+
+    // LÓGICA DE ENVÍO DE FORMULARIO (Mantenida igual)
+    document.getElementById('attendance-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      fetch("https://formsubmit.co/ajax/appleedavid@gmail.com", {
+        method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json'},
+        body: JSON.stringify({ Jugador: document.getElementById('user-name').value, Correo: document.getElementById('user-email').value, Juego: document.getElementById('user-game').value, _subject: "NUEVA INSCRIPCIÓN" })
+      }).then(res => res.json()).then(data => { alert("¡INSCRITO CON ÉXITO!"); document.getElementById('attendance-form').reset(); });
+    });
+  </script>
+ </body>
+</html>
