@@ -3,7 +3,7 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Torneo Gaming ITC</title>
+  <title>Torneo Gaming ITC 2026</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -22,7 +22,7 @@
       --tertiary-color: #ffcc00;
     }
 
-    /* MODO MATRIX OVERRIDE (Se activa con JS) */
+    /* MODO MATRIX OVERRIDE */
     .matrix-override {
       --bg-color: #000500 !important;
       --surface-color: #001100 !important;
@@ -43,29 +43,17 @@
     }
 
     .font-display { font-family: 'Orbitron', monospace; }
-    
-    .theme-transition {
-      transition: background 0.8s ease, color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease, text-shadow 0.8s ease, fill 0.8s ease;
-    }
+    .theme-transition { transition: background 0.8s ease, color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease, text-shadow 0.8s ease, fill 0.8s ease; }
 
-    /* EFECTO GLITCH PARA TÍTULOS */
+    /* GLITCH EFFECT */
     .glitch-text { position: relative; z-index: 1; display: inline-block; }
-    .glitch-text:hover::before, .glitch-text:hover::after {
-        content: attr(data-text);
-        position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent;
-    }
-    .glitch-text:hover::before {
-        left: 3px; text-shadow: -2px 0 var(--secondary-color);
-        animation: glitch-anim-1 2s infinite linear alternate-reverse; z-index: -1;
-    }
-    .glitch-text:hover::after {
-        left: -3px; text-shadow: -2px 0 var(--primary-color);
-        animation: glitch-anim-2 3s infinite linear alternate-reverse; z-index: -1;
-    }
+    .glitch-text:hover::before, .glitch-text:hover::after { content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; }
+    .glitch-text:hover::before { left: 3px; text-shadow: -2px 0 var(--secondary-color); animation: glitch-anim-1 2s infinite linear alternate-reverse; z-index: -1; }
+    .glitch-text:hover::after { left: -3px; text-shadow: -2px 0 var(--primary-color); animation: glitch-anim-2 3s infinite linear alternate-reverse; z-index: -1; }
     @keyframes glitch-anim-1 { 0% { clip-path: inset(20% 0 80% 0); } 20% { clip-path: inset(60% 0 10% 0); } 40% { clip-path: inset(40% 0 50% 0); } 60% { clip-path: inset(80% 0 5% 0); } 80% { clip-path: inset(10% 0 70% 0); } 100% { clip-path: inset(30% 0 50% 0); } }
     @keyframes glitch-anim-2 { 0% { clip-path: inset(10% 0 60% 0); } 20% { clip-path: inset(30% 0 20% 0); } 40% { clip-path: inset(70% 0 10% 0); } 60% { clip-path: inset(20% 0 50% 0); } 80% { clip-path: inset(50% 0 30% 0); } 100% { clip-path: inset(5% 0 80% 0); } }
 
-    /* Animaciones de Fondo 3D */
+    /* Animaciones y Objetos */
     .floating-cube { position: absolute; width: 60px; height: 60px; transform-style: preserve-3d; animation: floatRotate 8s ease-in-out infinite; }
     .cube-face { position: absolute; width: 60px; height: 60px; border: 2px solid var(--primary-color); background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(255, 0, 170, 0.1)); backdrop-filter: blur(5px); }
     .cube-face.front { transform: translateZ(30px); } .cube-face.back { transform: rotateY(180deg) translateZ(30px); }
@@ -73,7 +61,6 @@
     .cube-face.top { transform: rotateX(90deg) translateZ(30px); } .cube-face.bottom { transform: rotateX(-90deg) translateZ(30px); }
     @keyframes floatRotate { 0%, 100% { transform: translateY(0) rotateX(0deg) rotateY(0deg); } 25% { transform: translateY(-20px) rotateX(90deg) rotateY(90deg); } 50% { transform: translateY(0) rotateX(180deg) rotateY(180deg); } 75% { transform: translateY(20px) rotateX(270deg) rotateY(270deg); } }
     
-    /* Textos y Botones */
     .neon-text { text-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color), 0 0 20px var(--primary-color); color: var(--text-color); }
     .neon-text-pink { text-shadow: 0 0 5px var(--secondary-color), 0 0 10px var(--secondary-color), 0 0 20px var(--secondary-color); color: var(--secondary-color); }
     .countdown-item { background: var(--surface-color); border: 1px solid rgba(0, 240, 255, 0.3); position: relative; overflow: hidden; }
@@ -88,8 +75,9 @@
     .game-card { background: rgba(18, 18, 26, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); transition: all 0.4s ease; }
     .game-card:hover { transform: translateY(-10px); }
     .game-card.fortnite:hover { border-color: #9d4edd; box-shadow: 0 10px 30px rgba(157, 78, 221, 0.3); }
-    .game-card.fifa:hover { border-color: #00f5d4; box-shadow: 0 10px 30px rgba(0, 245, 212, 0.3); }
+    .game-card.mk:hover { border-color: #ff003c; box-shadow: 0 10px 30px rgba(255, 0, 60, 0.3); }
     .game-card.clash:hover { border-color: #ffb703; box-shadow: 0 10px 30px rgba(255, 183, 3, 0.3); }
+    .game-card.forza:hover { border-color: #ff5a00; box-shadow: 0 10px 30px rgba(255, 90, 0, 0.3); }
 
     .grid-bg { background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px); background-size: 50px 50px; animation: gridMove 20s linear infinite; }
     @keyframes gridMove { 0% { background-position: 0 0; } 100% { background-position: 50px 50px; } }
@@ -103,12 +91,18 @@
 
     .timeline-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--primary-color); opacity: 0.3; }
     .timeline-dot { position: absolute; left: -5px; top: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--primary-color); box-shadow: 0 0 10px var(--primary-color); }
+    
     .faq-item { border-bottom: 1px solid rgba(255,255,255,0.1); }
     .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
     .faq-item.active .faq-answer { max-height: 200px; }
     .faq-item.active .faq-icon { transform: rotate(180deg); color: var(--primary-color); }
     
-    /* CRT Scanline Effect para la Terminal Hacker */
+    /* Scrollbar personalizada */
+    .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--primary-color); border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: var(--secondary-color); }
+
     .scanlines::before {
       content: " "; display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
       background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
@@ -137,7 +131,7 @@
      <div class="fade-in-up delay-2 mb-8 text-center flex flex-col sm:flex-row gap-4">
       <div class="theme-transition inline-flex items-center gap-3 px-6 py-3 rounded-xl" style="background: var(--surface-color); border: 1px solid var(--secondary-color);">
         <i data-lucide="calendar" class="theme-transition" style="width: 24px; height: 24px; color: var(--secondary-color);"></i> 
-        <span class="font-display text-xl font-bold" style="color: var(--text-color);">17 MARZO 2026</span>
+        <span class="font-display text-xl font-bold" style="color: var(--text-color);">20 MARZO 2026</span>
       </div>
       <button onclick="toggleModal('rules-modal')" class="btn-secondary theme-transition font-display text-lg font-bold px-6 py-3 rounded-xl flex items-center gap-2">
         <i data-lucide="scroll-text" style="width: 20px; height: 20px;"></i> REGLAS Y PREMIOS
@@ -153,9 +147,9 @@
       </div>
      </div>
 
-     <div class="fade-in-up delay-4 mb-16 w-full max-w-4xl">
+     <div class="fade-in-up delay-4 mb-16 w-full max-w-6xl">
        <h3 class="font-display text-2xl text-center mb-8 tracking-widest uppercase text-gray-400">Juegos Oficiales</h3>
-       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
          <div class="game-card fortnite p-6 rounded-2xl text-center flex flex-col items-center">
            <div class="w-16 h-16 rounded-full mb-4 flex items-center justify-center" style="background: rgba(157, 78, 221, 0.2); border: 1px solid #9d4edd;">
              <i data-lucide="crosshair" style="color: #9d4edd; width: 32px; height: 32px;"></i>
@@ -163,12 +157,12 @@
            <h4 class="font-display text-xl font-bold text-white mb-2">FORTNITE</h4>
            <p class="text-sm text-gray-400">Batalla Campal • Solos y Dúos</p>
          </div>
-         <div class="game-card fifa p-6 rounded-2xl text-center flex flex-col items-center">
-           <div class="w-16 h-16 rounded-full mb-4 flex items-center justify-center" style="background: rgba(0, 245, 212, 0.2); border: 1px solid #00f5d4;">
-             <i data-lucide="dribbble" style="color: #00f5d4; width: 32px; height: 32px;"></i>
+         <div class="game-card mk p-6 rounded-2xl text-center flex flex-col items-center">
+           <div class="w-16 h-16 rounded-full mb-4 flex items-center justify-center" style="background: rgba(255, 0, 60, 0.2); border: 1px solid #ff003c;">
+             <i data-lucide="flame" style="color: #ff003c; width: 32px; height: 32px;"></i>
            </div>
-           <h4 class="font-display text-xl font-bold text-white mb-2">EA FC (FIFA)</h4>
-           <p class="text-sm text-gray-400">Torneo 1v1 • Eliminación Directa</p>
+           <h4 class="font-display text-xl font-bold text-white mb-2">MORTAL KOMBAT</h4>
+           <p class="text-sm text-gray-400">Torneo 1v1 • Doble Eliminación</p>
          </div>
          <div class="game-card clash p-6 rounded-2xl text-center flex flex-col items-center">
            <div class="w-16 h-16 rounded-full mb-4 flex items-center justify-center" style="background: rgba(255, 183, 3, 0.2); border: 1px solid #ffb703;">
@@ -176,6 +170,13 @@
            </div>
            <h4 class="font-display text-xl font-bold text-white mb-2">CLASH ROYALE</h4>
            <p class="text-sm text-gray-400">Mejor de 3 • Arena Competitiva</p>
+         </div>
+         <div class="game-card forza p-6 rounded-2xl text-center flex flex-col items-center">
+           <div class="w-16 h-16 rounded-full mb-4 flex items-center justify-center" style="background: rgba(255, 90, 0, 0.2); border: 1px solid #ff5a00;">
+             <i data-lucide="car" style="color: #ff5a00; width: 32px; height: 32px;"></i>
+           </div>
+           <h4 class="font-display text-xl font-bold text-white mb-2">FORZA</h4>
+           <p class="text-sm text-gray-400">Simulación / Arcade • Carreras</p>
          </div>
        </div>
      </div>
@@ -195,8 +196,9 @@
         <select id="user-game" name="Juego" required class="theme-transition px-6 py-4 rounded-lg text-center font-display text-lg focus:outline-none appearance-none cursor-pointer" style="background: rgba(255,255,255,0.05); color: var(--text-color); border: 1px solid var(--primary-color);">
           <option value="" disabled selected>¿En qué juego competirás?</option>
           <option value="Fortnite">Fortnite</option>
-          <option value="FIFA">FIFA / EA FC</option>
+          <option value="Mortal Kombat">Mortal Kombat</option>
           <option value="Clash Royale">Clash Royale</option>
+          <option value="Forza">Forza (Horizon/Motorsport)</option>
         </select>
         <input type="text" id="user-name" name="Nombre" required placeholder="Tu Nombre o Gamertag" class="theme-transition px-6 py-4 rounded-lg text-center font-display text-lg focus:outline-none" style="background: rgba(255,255,255,0.05); color: var(--text-color); border: 1px solid var(--primary-color);">
         <input type="email" id="user-email" name="Correo" required placeholder="Tu Correo" class="theme-transition px-6 py-4 rounded-lg text-center font-display text-lg focus:outline-none" style="background: rgba(255,255,255,0.05); color: var(--text-color); border: 1px solid var(--primary-color);">
@@ -219,26 +221,151 @@
        <h3 class="font-display text-2xl text-center mb-10 tracking-widest uppercase text-gray-400">
          <i data-lucide="clock" class="inline w-6 h-6 mr-2 theme-transition" style="color: var(--primary-color);"></i> Agenda del Evento
        </h3>
+       
        <div class="relative pl-6 space-y-8">
          <div class="timeline-item relative">
            <div class="timeline-dot theme-transition"></div>
            <div class="pl-6">
-             <span class="font-display text-xl font-bold theme-transition" style="color: var(--secondary-color);">09:00 AM</span>
-             <h4 class="text-lg text-white font-bold mt-1">Check-in y Asignación</h4>
+             <span class="font-display text-xl font-bold theme-transition" style="color: var(--secondary-color);">09:00 HRS</span>
+             <h4 class="text-lg text-white font-bold mt-1">Registro de participantes</h4>
            </div>
          </div>
          <div class="timeline-item relative">
            <div class="timeline-dot theme-transition"></div>
            <div class="pl-6">
-             <span class="font-display text-xl font-bold theme-transition" style="color: var(--secondary-color);">10:00 AM</span>
-             <h4 class="text-lg text-white font-bold mt-1">Fase de Grupos</h4>
+             <span class="font-display text-xl font-bold theme-transition" style="color: var(--secondary-color);">09:30 HRS</span>
+             <h4 class="text-lg text-white font-bold mt-1">Inauguración del evento</h4>
            </div>
          </div>
          <div class="timeline-item relative">
            <div class="timeline-dot theme-transition"></div>
            <div class="pl-6">
-             <span class="font-display text-xl font-bold theme-transition" style="color: var(--secondary-color);">02:00 PM</span>
-             <h4 class="text-lg text-white font-bold mt-1">Gran Final</h4>
+             <span class="font-display text-xl font-bold theme-transition" style="color: var(--secondary-color);">09:45 HRS</span>
+             <h4 class="text-lg text-white font-bold mt-1">Explicación de reglas</h4>
+           </div>
+         </div>
+         <div class="timeline-item relative">
+           <div class="timeline-dot theme-transition"></div>
+           <div class="pl-6">
+             <span class="font-display text-xl font-bold theme-transition" style="color: var(--secondary-color);">10:00 HRS</span>
+             <h4 class="text-lg text-white font-bold mt-1">Inicio de torneos</h4>
+             <p class="text-sm text-gray-400 mt-1">Forza Horizon, Mortal Kombat, Clash Royale y Fortnite.</p>
+           </div>
+         </div>
+         <div class="timeline-item relative">
+           <div class="timeline-dot theme-transition"></div>
+           <div class="pl-6">
+             <span class="font-display text-xl font-bold theme-transition" style="color: var(--secondary-color);">14:00 HRS</span>
+             <h4 class="text-lg text-white font-bold mt-1">Receso</h4>
+           </div>
+         </div>
+         <div class="timeline-item relative">
+           <div class="timeline-dot theme-transition"></div>
+           <div class="pl-6">
+             <span class="font-display text-xl font-bold theme-transition" style="color: var(--secondary-color);">14:30 HRS</span>
+             <h4 class="text-lg text-white font-bold mt-1">Semifinales</h4>
+           </div>
+         </div>
+         <div class="timeline-item relative">
+           <div class="timeline-dot theme-transition"></div>
+           <div class="pl-6">
+             <span class="font-display text-xl font-bold theme-transition" style="color: var(--secondary-color);">15:15 HRS</span>
+             <h4 class="text-lg text-white font-bold mt-1">Finales</h4>
+           </div>
+         </div>
+         <div class="timeline-item relative">
+           <div class="timeline-dot theme-transition"></div>
+           <div class="pl-6">
+             <span class="font-display text-xl font-bold theme-transition" style="color: var(--secondary-color);">15:45 HRS</span>
+             <h4 class="text-lg text-white font-bold mt-1">Premiación</h4>
+           </div>
+         </div>
+         <div class="timeline-item relative">
+           <div class="timeline-dot theme-transition"></div>
+           <div class="pl-6">
+             <span class="font-display text-xl font-bold theme-transition" style="color: var(--secondary-color);">16:00 HRS</span>
+             <h4 class="text-lg text-white font-bold mt-1">Cierre del evento</h4>
+           </div>
+         </div>
+       </div>
+     </div>
+
+     <div class="w-full max-w-4xl mx-auto px-4 mb-20 fade-in-up">
+       <div class="relative p-8 rounded-2xl overflow-hidden" style="background: rgba(20, 20, 25, 0.8); border: 1px solid rgba(255, 204, 0, 0.3); box-shadow: 0 10px 40px rgba(255, 204, 0, 0.1);">
+         <div class="absolute top-0 left-0 w-full h-full" style="background: radial-gradient(circle at 50% 0%, rgba(255, 204, 0, 0.1) 0%, transparent 70%); pointer-events: none;"></div>
+         
+         <h3 class="font-display text-2xl md:text-3xl text-center mb-6 font-bold" style="color: var(--tertiary-color);">
+           <i data-lucide="zap" class="inline w-8 h-8 mr-2 mb-1"></i> INVITADOS ESPECIALES
+         </h3>
+         
+         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
+           <div class="bg-black bg-opacity-50 p-6 rounded-xl border border-gray-800 hover:border-red-500 transition-colors group">
+             <div class="flex items-center gap-4 mb-4">
+               <i data-lucide="cpu" class="w-10 h-10 text-red-500 group-hover:scale-110 transition-transform"></i>
+               <h4 class="font-display text-2xl font-bold text-white tracking-wider">AMD</h4>
+             </div>
+             <p class="text-gray-400 text-sm">Experimenta el poder de los procesadores Ryzen. ¡Tendremos dinámicas exclusivas, mini-torneos de calentamiento y giveaways de mercancía oficial!</p>
+           </div>
+
+           <div class="bg-black bg-opacity-50 p-6 rounded-xl border border-gray-800 hover:border-red-600 transition-colors group">
+             <div class="flex items-center gap-4 mb-4">
+               <i data-lucide="monitor-speaker" class="w-10 h-10 text-red-600 group-hover:scale-110 transition-transform"></i>
+               <h4 class="font-display text-2xl font-bold text-white tracking-wider">ASUS <span class="text-sm text-gray-500">ROG</span></h4>
+             </div>
+             <p class="text-gray-400 text-sm">Descubre el ecosistema Republic of Gamers. Promociones especiales para estudiantes en laptops, periféricos y componentes para armar tu setup definitivo.</p>
+           </div>
+         </div>
+       </div>
+     </div>
+
+     <div class="w-full max-w-4xl mx-auto px-4 mb-20 fade-in-up">
+       <h3 class="font-display text-2xl text-center mb-10 tracking-widest uppercase text-gray-400">
+         <i data-lucide="book-open" class="inline w-6 h-6 mr-2 theme-transition" style="color: var(--primary-color);"></i> Reglas Destacadas
+       </h3>
+       
+       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+         <div class="p-6 rounded-2xl bg-opacity-50" style="background: var(--surface-color); border: 1px solid rgba(255,255,255,0.05);">
+           <i data-lucide="clock-alert" class="w-8 h-8 text-yellow-500 mb-4"></i>
+           <h4 class="font-bold text-white mb-2">Puntualidad (W.O.)</h4>
+           <p class="text-gray-400 text-sm">Tolerancia máxima de 5 minutos por partida. Si no te presentas, quedarás descalificado automáticamente.</p>
+         </div>
+         <div class="p-6 rounded-2xl bg-opacity-50" style="background: var(--surface-color); border: 1px solid rgba(255,255,255,0.05);">
+           <i data-lucide="shield-alert" class="w-8 h-8 text-red-500 mb-4"></i>
+           <h4 class="font-bold text-white mb-2">Cero Toxicidad</h4>
+           <p class="text-gray-400 text-sm">Cualquier agresión verbal, física o comportamiento antideportivo resultará en la expulsión inmediata.</p>
+         </div>
+         <div class="p-6 rounded-2xl bg-opacity-50" style="background: var(--surface-color); border: 1px solid rgba(255,255,255,0.05);">
+           <i data-lucide="gamepad" class="w-8 h-8 text-green-500 mb-4"></i>
+           <h4 class="font-bold text-white mb-2">Periféricos</h4>
+           <p class="text-gray-400 text-sm">Trae tu propio control bajo tu responsabilidad. Arcade Sticks permitidos.</p>
+         </div>
+       </div>
+       <div class="text-center mt-8">
+         <button onclick="toggleModal('rules-modal')" class="cta-button theme-transition font-display text-sm font-bold px-6 py-2 rounded-lg text-black">LEER REGLAMENTO COMPLETO</button>
+       </div>
+     </div>
+
+     <div class="w-full max-w-3xl mx-auto px-4 mb-20 fade-in-up">
+       <h3 class="font-display text-2xl text-center mb-8 tracking-widest uppercase text-gray-400">
+         <i data-lucide="help-circle" class="inline w-6 h-6 mr-2 theme-transition" style="color: var(--primary-color);"></i> Preguntas Frecuentes
+       </h3>
+       <div class="bg-opacity-50 rounded-2xl" style="background: var(--surface-color); border: 1px solid rgba(255,255,255,0.05);">
+         <div class="faq-item p-6" onclick="this.classList.toggle('active')">
+           <div class="flex justify-between items-center cursor-pointer">
+             <h4 class="font-bold text-white">¿Puedo llevar mi propio control/mando?</h4>
+             <i data-lucide="chevron-down" class="faq-icon transition-transform duration-300 text-gray-400"></i>
+           </div>
+           <div class="faq-answer mt-2 text-gray-400 text-sm">
+             <p>Sí, de hecho lo recomendamos. Si vas a jugar Mortal Kombat, Forza o Fortnite en consola, puedes traer tu propio mando o Arcade Stick de PS4, PS5 o Xbox. Solo asegúrate de traer tu cable.</p>
+           </div>
+         </div>
+         <div class="faq-item p-6" onclick="this.classList.toggle('active')">
+           <div class="flex justify-between items-center cursor-pointer">
+             <h4 class="font-bold text-white">¿Tiene algún costo la inscripción?</h4>
+             <i data-lucide="chevron-down" class="faq-icon transition-transform duration-300 text-gray-400"></i>
+           </div>
+           <div class="faq-answer mt-2 text-gray-400 text-sm">
+             <p>Las bases de inscripción y costos se te enviarán a tu correo electrónico una vez que llenes el formulario de registro en esta página.</p>
            </div>
          </div>
        </div>
@@ -267,7 +394,7 @@
     
     <footer class="w-full py-6 text-center border-t border-gray-800" style="background: rgba(10, 10, 15, 0.9);">
       <p class="text-gray-500 text-sm tracking-widest uppercase">
-        2026 Torneo Gaming <span class="mx-2">|</span><span class="font-display font-bold theme-transition" style="color: var(--primary-color);">tecnm</span>
+        2026 Torneo Gaming <span class="mx-2">|</span> Design & Code by <span class="font-display font-bold theme-transition" style="color: var(--primary-color);">David</span>
       </p>
     </footer>
 
@@ -275,13 +402,92 @@
   </div>
 
   <div id="rules-modal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity duration-300">
-    <div class="max-w-2xl w-full rounded-2xl p-8 relative theme-transition" style="background: var(--surface-color); border: 1px solid var(--primary-color); box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);">
-      <button onclick="toggleModal('rules-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
-        <i data-lucide="x" style="width: 28px; height: 28px;"></i>
+    <div class="max-w-4xl w-full rounded-2xl p-8 relative theme-transition flex flex-col" style="background: var(--surface-color); border: 1px solid var(--primary-color); box-shadow: 0 0 40px rgba(0, 240, 255, 0.15); max-height: 90vh;">
+      
+      <button onclick="toggleModal('rules-modal')" class="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors">
+        <i data-lucide="x" style="width: 32px; height: 32px;"></i>
       </button>
-      <h3 class="font-display text-3xl font-bold mb-6 text-center theme-transition" style="color: var(--primary-color);">REGLAMENTO</h3>
-      <div class="mt-8 text-center">
-        <button onclick="toggleModal('rules-modal')" class="cta-button theme-transition font-display font-bold px-8 py-3 rounded-lg text-black">CERRAR</button>
+      
+      <div class="border-b border-gray-800 pb-4 mb-6">
+        <h3 class="font-display text-2xl md:text-3xl font-bold text-center theme-transition" style="color: var(--primary-color);">
+          <i data-lucide="book-open" class="inline-block w-8 h-8 mr-2 mb-1"></i> REGLAMENTO OFICIAL
+        </h3>
+        <p class="text-center text-gray-500 text-sm tracking-widest mt-1">TORNEO GAMING 2026</p>
+      </div>
+      
+      <div class="space-y-8 text-gray-300 overflow-y-auto custom-scrollbar pr-4 flex-grow">
+        
+        <div class="bg-black bg-opacity-40 p-6 rounded-xl border border-gray-800">
+          <h4 class="font-display text-xl text-white mb-4 flex items-center gap-3">
+            <i data-lucide="alert-circle" class="text-red-500"></i> CÓDIGO DE CONDUCTA GENERAL
+          </h4>
+          <ul class="list-disc pl-5 space-y-3 text-sm md:text-base text-gray-400">
+            <li><span class="text-white font-bold">Identificación:</span> Todos los participantes deben presentar su acreditación al llegar a la mesa de registro.</li>
+            <li><span class="text-white font-bold">Puntualidad:</span> Existe una tolerancia máxima de 5 minutos por partida. La ausencia resultará en descalificación automática por <span class="text-red-400">Walkover (W.O.)</span>.</li>
+            <li><span class="text-white font-bold">Comportamiento:</span> Cualquier insulto o actitud tóxica hacia rivales u organizadores será motivo de expulsión inmediata del evento.</li>
+            <li><span class="text-white font-bold">Periféricos:</span> Se permite traer tu propio control/Arcade Stick de consola. La organización no se hace responsable por pérdidas o fallas técnicas del mismo.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-display text-xl text-white mb-4 flex items-center gap-3 border-b border-gray-800 pb-2">
+            <i data-lucide="gamepad-2" style="color: var(--primary-color);"></i> ESPECIFICACIONES POR JUEGO
+          </h4>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+            <div class="p-5 rounded-lg" style="background: rgba(157, 78, 221, 0.1); border-left: 4px solid #9d4edd;">
+              <h5 class="font-display font-bold text-[#9d4edd] mb-2 text-lg">FORTNITE</h5>
+              <ul class="list-disc pl-4 space-y-1 text-sm text-gray-400">
+                <li>Prohibido estrictamente hacer "Teaming" (alianzas) en formato Solos.</li>
+                <li>Puntuación basada en sistema competitivo: Puntos por Kills y por Supervivencia.</li>
+                <li>El uso de hacks, macros o asistencia externa (Zen) amerita ban permanente.</li>
+              </ul>
+            </div>
+
+            <div class="p-5 rounded-lg" style="background: rgba(255, 0, 60, 0.1); border-left: 4px solid #ff003c;">
+              <h5 class="font-display font-bold text-[#ff003c] mb-2 text-lg">MORTAL KOMBAT</h5>
+              <ul class="list-disc pl-4 space-y-1 text-sm text-gray-400">
+                <li>Formato: 1v1, Mejor de 3 (BO3). Finales Mejor de 5 (BO5).</li>
+                <li>Pausar el juego durante un combate resultará en la pérdida directa del round.</li>
+                <li>Se permite el uso de cualquier personaje base del roster.</li>
+                <li>Prohibido programar combos en macros (Turbo).</li>
+              </ul>
+            </div>
+
+            <div class="p-5 rounded-lg" style="background: rgba(255, 183, 3, 0.1); border-left: 4px solid #ffb703;">
+              <h5 class="font-display font-bold text-[#ffb703] mb-2 text-lg">CLASH ROYALE</h5>
+              <ul class="list-disc pl-4 space-y-1 text-sm text-gray-400">
+                <li>Formato de partida: Mejor de 3 (BO3). La final será al Mejor de 5 (BO5).</li>
+                <li>Las batallas se jugarán mediante "Batalla Amistosa" en el clan oficial.</li>
+                <li>Prohibido jugar en emuladores (PC). Solo dispositivos móviles.</li>
+              </ul>
+            </div>
+
+            <div class="p-5 rounded-lg" style="background: rgba(255, 90, 0, 0.1); border-left: 4px solid #ff5a00;">
+              <h5 class="font-display font-bold text-[#ff5a00] mb-2 text-lg">FORZA</h5>
+              <ul class="list-disc pl-4 space-y-1 text-sm text-gray-400">
+                <li>Formato de torneo: Circuito / Sprint (Eliminación directa).</li>
+                <li>Restricciones de clase de auto y tuneo según la ronda anunciada por los jueces.</li>
+                <li>Comportamiento antideportivo (chocar intencionalmente) será penalizado.</li>
+                <li>Prohibido el uso de atajos no permitidos (Track Limits).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-black bg-opacity-40 p-6 rounded-xl border border-gray-800 mt-6">
+          <h4 class="font-display text-xl text-white mb-2 flex items-center gap-3">
+            <i data-lucide="trophy" class="text-yellow-400"></i> PREMIACIÓN
+          </h4>
+          <p class="text-gray-400 text-sm">
+            Se premiará a los primeros 3 lugares de cada categoría. La bolsa de premios (que puede incluir efectivo, tarjetas de regalo o artículos en especie de nuestros patrocinadores AMD y ASUS) será anunciada y entregada de manera pública al concluir el evento. Las decisiones de los jueces son inapelables.
+          </p>
+        </div>
+
+      </div>
+      
+      <div class="mt-6 pt-4 border-t border-gray-800 text-center">
+        <button onclick="toggleModal('rules-modal')" class="cta-button theme-transition font-display font-bold px-10 py-3 rounded-lg text-black hover:scale-105 transition-transform">HE LEÍDO Y ACEPTO EL REGLAMENTO</button>
       </div>
     </div>
   </div>
@@ -305,9 +511,8 @@
       document.getElementById(modalID).classList.toggle('hidden');
     }
 
-    // CONTADOR
     function updateCountdown() {
-      const targetDate = new Date('2026-03-17T00:00:00').getTime();
+      const targetDate = new Date('2026-03-20T00:00:00').getTime();
       const now = new Date().getTime();
       const difference = targetDate - now;
       if (difference > 0) {
@@ -320,82 +525,61 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // ==========================================
-    // LÓGICA DE PARTÍCULAS INTERACTIVAS (CANVAS)
-    // ==========================================
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
     let particlesArray = [];
     let mouse = { x: null, y: null, radius: 100 };
-    let particleBaseColor = '0, 240, 255'; // Color por defecto (Cyan)
+    let particleBaseColor = '0, 240, 255'; 
 
     window.addEventListener('mousemove', function(event) {
-        mouse.x = event.x;
-        mouse.y = event.y;
+        mouse.x = event.x; mouse.y = event.y;
     });
 
     window.addEventListener('resize', function() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         initParticles();
     });
 
     class Particle {
         constructor(x, y, directionX, directionY, size, color) {
-            this.x = x; this.y = y;
-            this.directionX = directionX; this.directionY = directionY;
-            this.size = size; this.color = color;
+            this.x = x; this.y = y; this.directionX = directionX; this.directionY = directionY; this.size = size; this.color = color;
         }
         draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-            ctx.fillStyle = `rgba(${particleBaseColor}, 0.8)`;
-            ctx.fill();
+            ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+            ctx.fillStyle = `rgba(${particleBaseColor}, 0.8)`; ctx.fill();
         }
         update() {
             if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
             if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
-            
-            // Interacción de evadir el mouse
-            let dx = mouse.x - this.x;
-            let dy = mouse.y - this.y;
-            let distance = Math.sqrt(dx*dx + dy*dy);
+            let dx = mouse.x - this.x; let dy = mouse.y - this.y; let distance = Math.sqrt(dx*dx + dy*dy);
             if (distance < mouse.radius + this.size){
                 if (mouse.x < this.x && this.x < canvas.width - this.size * 10) this.x += 2;
                 if (mouse.x > this.x && this.x > this.size * 10) this.x -= 2;
                 if (mouse.y < this.y && this.y < canvas.height - this.size * 10) this.y += 2;
                 if (mouse.y > this.y && this.y > this.size * 10) this.y -= 2;
             }
-            this.x += this.directionX;
-            this.y += this.directionY;
-            this.draw();
+            this.x += this.directionX; this.y += this.directionY; this.draw();
         }
     }
 
     function initParticles() {
-        particlesArray = [];
-        let numberOfParticles = (canvas.height * canvas.width) / 15000;
+        particlesArray = []; let numberOfParticles = (canvas.height * canvas.width) / 15000;
         for (let i = 0; i < numberOfParticles; i++) {
             let size = (Math.random() * 3) + 1;
             let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
             let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-            let directionX = (Math.random() * 1) - 0.5;
-            let directionY = (Math.random() * 1) - 0.5;
+            let directionX = (Math.random() * 1) - 0.5; let directionY = (Math.random() * 1) - 0.5;
             let color = `rgba(${particleBaseColor}, 0.8)`;
             particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
         }
     }
 
     function animateParticles() {
-        requestAnimationFrame(animateParticles);
-        ctx.clearRect(0, 0, innerWidth, innerHeight);
-        for (let i = 0; i < particlesArray.length; i++) {
-            particlesArray[i].update();
-        }
+        requestAnimationFrame(animateParticles); ctx.clearRect(0, 0, innerWidth, innerHeight);
+        for (let i = 0; i < particlesArray.length; i++) particlesArray[i].update();
         connectParticles();
     }
 
-    // Efecto Constelación (Lineas entre partículas cercanas)
     function connectParticles() {
         let opacityValue = 1;
         for (let a = 0; a < particlesArray.length; a++) {
@@ -404,49 +588,31 @@
                 if (distance < (canvas.width/10) * (canvas.height/10)) {
                     opacityValue = 1 - (distance/20000);
                     ctx.strokeStyle = `rgba(${particleBaseColor}, ${opacityValue})`;
-                    ctx.lineWidth = 1;
-                    ctx.beginPath();
-                    ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-                    ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
-                    ctx.stroke();
+                    ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(particlesArray[a].x, particlesArray[a].y); ctx.lineTo(particlesArray[b].x, particlesArray[b].y); ctx.stroke();
                 }
             }
         }
     }
     
-    // Iniciar Canvas
     canvas.width = window.innerWidth; canvas.height = window.innerHeight;
     initParticles(); animateParticles();
 
-    // ==========================================
-    // LÓGICA DE LA TERMINAL HACKER (EASTER EGG)
-    // ==========================================
     let keyBuffer = '';
     const terminal = document.getElementById('hacker-terminal');
     const termInput = document.getElementById('terminal-input');
     const termOutput = document.getElementById('terminal-output');
 
     document.addEventListener('keydown', (e) => {
-        // Salir con ESC
-        if(e.key === 'Escape') {
-            terminal.classList.add('hidden'); terminal.classList.remove('flex');
-            return;
-        }
-        // Atajo directo con ~
-        if(e.key === '~' || e.key === '`') {
-            e.preventDefault(); openTerminal();
-        }
-        // Keylogger para la palabra "admin"
+        if(e.key === 'Escape') { terminal.classList.add('hidden'); terminal.classList.remove('flex'); return; }
+        if(e.key === '~' || e.key === '`') { e.preventDefault(); openTerminal(); }
         keyBuffer += e.key.toLowerCase();
         if(keyBuffer.length > 5) keyBuffer = keyBuffer.slice(-5);
         if(keyBuffer === 'admin') openTerminal();
     });
 
     function openTerminal() {
-        terminal.classList.remove('hidden');
-        terminal.classList.add('flex');
-        setTimeout(() => termInput.focus(), 100);
-        keyBuffer = '';
+        terminal.classList.remove('hidden'); terminal.classList.add('flex');
+        setTimeout(() => termInput.focus(), 100); keyBuffer = '';
     }
 
     termInput.addEventListener('keypress', function(e) {
@@ -454,44 +620,44 @@
             const code = this.value.toUpperCase().trim();
             if(code === 'MATRIX' || code === 'DYCODE') {
                 termOutput.textContent = '> CÓDIGO ACEPTADO.\n> ANULANDO SISTEMA PRINCIPAL...\n> MODO DESARROLLADOR ACTIVADO. BIENVENIDO, DAVID.';
-                
-                // Activar Matrix Mode
-                document.body.classList.add('matrix-override');
-                particleBaseColor = '0, 255, 0'; // Cambiar partículas a verde
-                
-                setTimeout(() => {
-                    terminal.classList.add('hidden');
-                    terminal.classList.remove('flex');
-                    this.value = '';
-                }, 3000);
+                document.body.classList.add('matrix-override'); particleBaseColor = '0, 255, 0'; 
+                setTimeout(() => { terminal.classList.add('hidden'); terminal.classList.remove('flex'); this.value = ''; }, 3000);
             } else {
-                termOutput.textContent = `> ERROR: CÓDIGO '${code}' NO RECONOCIDO.\n> ACCESO DENEGADO. EL INCIDENTE HA SIDO REGISTRADO.`;
-                this.value = '';
+                termOutput.textContent = `> ERROR: CÓDIGO '${code}' NO RECONOCIDO.\n> ACCESO DENEGADO. EL INCIDENTE HA SIDO REGISTRADO.`; this.value = '';
             }
         }
     });
 
-    // ==========================================
-    // LÓGICA DEL TEMA DINÁMICO DEL SELECT
-    // ==========================================
     const gameSelect = document.getElementById('user-game');
     const root = document.documentElement;
 
     gameSelect.addEventListener('change', function(e) {
-      if(document.body.classList.contains('matrix-override')) return; // No cambiar si está en modo Matrix
+      if(document.body.classList.contains('matrix-override')) return; 
       const selectedGame = e.target.value;
+      
       if (selectedGame === 'Fortnite') {
-        root.style.setProperty('--primary-color', '#9d4edd'); root.style.setProperty('--secondary-color', '#00f0ff'); particleBaseColor = '157, 78, 221';
-      } else if (selectedGame === 'FIFA') {
-        root.style.setProperty('--primary-color', '#00f5d4'); root.style.setProperty('--secondary-color', '#00a8ff'); particleBaseColor = '0, 245, 212';
+        root.style.setProperty('--primary-color', '#9d4edd'); 
+        root.style.setProperty('--secondary-color', '#00f0ff'); 
+        particleBaseColor = '157, 78, 221';
+      } else if (selectedGame === 'Mortal Kombat') {
+        root.style.setProperty('--primary-color', '#ff003c'); 
+        root.style.setProperty('--secondary-color', '#ffaa00'); 
+        particleBaseColor = '255, 0, 60';
       } else if (selectedGame === 'Clash Royale') {
-        root.style.setProperty('--primary-color', '#ffb703'); root.style.setProperty('--secondary-color', '#3a86ff'); particleBaseColor = '255, 183, 3';
+        root.style.setProperty('--primary-color', '#ffb703'); 
+        root.style.setProperty('--secondary-color', '#3a86ff'); 
+        particleBaseColor = '255, 183, 3';
+      } else if (selectedGame === 'Forza') {
+        root.style.setProperty('--primary-color', '#ff5a00'); 
+        root.style.setProperty('--secondary-color', '#ff9e00'); 
+        particleBaseColor = '255, 90, 0';
       } else {
-        root.style.setProperty('--primary-color', '#00f0ff'); root.style.setProperty('--secondary-color', '#ff00aa'); particleBaseColor = '0, 240, 255';
+        root.style.setProperty('--primary-color', '#00f0ff'); 
+        root.style.setProperty('--secondary-color', '#ff00aa'); 
+        particleBaseColor = '0, 240, 255';
       }
     });
 
-    // LÓGICA DE ENVÍO DE FORMULARIO (Mantenida igual)
     document.getElementById('attendance-form').addEventListener('submit', function(e) {
       e.preventDefault();
       fetch("https://formsubmit.co/ajax/appleedavid@gmail.com", {
